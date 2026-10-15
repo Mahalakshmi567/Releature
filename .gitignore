@@ -1,0 +1,31 @@
+backend/target/
+frontend/node_modules/
+frontend/dist/
+
+# Secrets and environment configuration
+.env
+.env.*
+!.env.example
+application-local.properties
+
+# Java / Maven
+target/
+*.class
+
+# Node / React
+node_modules/
+dist/
+build/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+
+# Operating system
+.DS_Store
+Thumbs.db
+

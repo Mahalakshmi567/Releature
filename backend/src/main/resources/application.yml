@@ -1,0 +1,29 @@
+spring:
+  data:
+    redis:
+      # Short timeouts so an unreachable Redis never makes flag evaluation slow.
+      timeout: 500ms
+      connect-timeout: 500ms
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/flags}
+    username: ${DB_USER:flags}
+    password: ${DB_PASSWORD:flags}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+server:
+  port: 8080
+app:
+  admin:
+    # Used only when no users exist yet, to create the first account.
+    username: ${ADMIN_USERNAME:admin}
+    password: ${ADMIN_PASSWORD:admin123}
+  auth:
+    token-hours: 8
+  cache:
+    enabled: ${CACHE_ENABLED:true}
+    # Safety net: an entry is never served for longer than this, even if an invalidation is missed.
+    ttl-seconds: 60

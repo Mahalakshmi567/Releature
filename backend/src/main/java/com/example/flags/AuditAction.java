@@ -1,0 +1,3 @@
+package com.example.flags;
+
+public enum AuditAction { FLAG_CREATED, FLAG_UPDATED, FLAG_DELETED, ENVIRONMENT_UPDATED, TARGETING_UPDATED }
