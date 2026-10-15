@@ -1,98 +1,141 @@
-# Feature Flag Dashboard
+# Releature - Feature Flag Dashboard
 
-A full-stack feature flag management platform that enables teams to control feature releases, manage environment-specific configurations, target selected users, and gradually roll out new functionality. Built with React, Spring Boot, PostgreSQL, and Redis caching.
+A full-stack feature flag management system that enables developers to control feature releases, manage environment-specific configurations, target users, and roll out new features safely without redeploying their applications.
 
-## Overview
+The platform provides centralized flag management, deterministic percentage-based rollouts, audit history, role-based access control, Redis caching, configuration rollback, and real-time change notifications.
 
-The Feature Flag Dashboard helps developers release features safely without requiring a new application deployment for every configuration change. Administrators can manage feature flags, control availability across environments, evaluate flags for individual users, and track configuration changes through an audit history.
+✨ Features
 
-## Features
+🔹 Level 1 — Core Features
 
-### 1. Feature Flag CRUD
-- Create, view, edit, enable, disable, and delete feature flags.
-- Define a unique flag key, name, description, data type, and default value.
-- Support controlled feature evaluation through flag configuration.
+1. Feature Flag CRUD
 
-### 2. Environment Management
-- Manage separate Development, Testing, and Production environments.
-- Maintain independent flag configurations for each environment.
-- Prevent development configuration changes from automatically affecting production.
+Create, view, edit, enable, disable, and delete feature flags.
 
-### 3. Percentage Rollout
-- Gradually release features to a selected percentage of users.
-- Use deterministic bucketing so the same user consistently receives the same rollout decision for a given flag configuration.
-- Increase or decrease rollout percentages as a release progresses.
+Assign each flag a unique key, name, description, data type, and default value.
 
-### 4. User Targeting
-- Target specific user IDs.
-- Apply targeting rules based on user attributes, such as subscription plan.
-- Configure how explicit targeting interacts with percentage rollout.
+Validate flag configurations to maintain data consistency.
 
-### 5. Audit History
-- Track feature flag configuration changes.
-- Record the previous and updated configuration, change timestamp, responsible user, and reason.
-- Maintain a history for reviewing administrative actions.
+2. Environment Management
 
-### 6. Redis Caching and Fast Evaluation
-- Cache feature flag configuration to reduce repeated database reads.
-- Reuse cached configuration for repeated evaluations.
-- Invalidate or refresh cached configuration when an administrator changes a flag.
-- Configure cache expiration with a default TTL of 60 seconds.
-- Track cache hits, misses, errors, and pending invalidations.
-- Support database-backed evaluation when the cache is unavailable, according to the configured fallback behavior.
+Maintain independent configurations for Development, Testing, and Production.
 
-### 7. One-Click Rollback
-- Restore a previous feature flag configuration.
-- Preserve the audit trail of configuration changes and rollback actions.
-- Roll back configuration only; this does not reverse data changes already performed by the feature.
+Modify development settings without automatically affecting production.
 
-### 8. Role-Based Permissions
-- Protect management endpoints with Spring Security.
-- Restrict administrative operations according to user permissions.
-- Limit production configuration changes to authorized roles.
+Manage feature availability separately for each environment.
 
-## Technology Stack
+3. Percentage-Based Rollout
 
-| Layer | Technology |
-|---|---|
-| Frontend | React |
-| Backend | Java, Spring Boot |
-| Database | PostgreSQL |
-| Caching | Redis-compatible cache |
-| Security | Spring Security, token-based authentication |
-| Build tool | Maven |
-| Frontend tooling | Node.js, npm |
-| Version control | Git, GitHub |
+Release features gradually to a specified percentage of users.
 
-## Architecture
+Use deterministic bucketing to assign users consistently.
 
-The frontend communicates with the Spring Boot REST API. PostgreSQL stores the persistent application data, while the cache accelerates repeated feature flag evaluations.
+Ensure the same user receives a stable evaluation result for a given flag and configuration.
 
-```text
-React Frontend
-      |
-      | HTTP / REST API
-      v
-Spring Boot Backend
-      |
-      +------ Spring Security
-      |
-      +------ Feature Flag Evaluation
-      |                |
-      |                +---- Redis Cache
-      |                |
-      |                +---- PostgreSQL
-      |
-      +------ Targeting and Rollout
-      |
-      +------ Audit History and Rollback
-```
+4. User Targeting
 
-## Future Improvements
+Enable features for explicitly selected user IDs.
 
-- Automated integration tests for targeting and rollout behavior.
-- Performance testing for high-volume flag evaluation.
-- Monitoring and alerting for cache failures.
-- CI/CD workflows for automated builds and testing.
-- Containerized development and deployment.
+Target users based on attributes such as subscription plan.
 
+Define precedence between explicit targeting rules and percentage-based rollout.
+
+Support controlled feature releases for specific user segments.
+
+5. Audit History
+
+Track feature flag configuration changes.
+
+Record the user who made each change.
+
+Store previous and updated configurations.
+
+Record timestamps and reasons for changes.
+
+Maintain a history of administrative actions for traceability.
+
+🔹 Level 2 — Advanced Features
+
+6. Redis Caching and Fast Evaluation
+
+Cache feature flag configurations using Redis.
+
+Reduce repeated database queries during flag evaluation.
+
+Refresh or invalidate cached configurations after administrative updates.
+
+Improve evaluation performance and application responsiveness.
+
+7. One-Click Configuration Rollback
+
+Restore a previous feature flag configuration.
+
+Preserve audit history for rollback operations.
+
+Record the restored configuration and the user initiating the rollback.
+
+Roll back configuration changes without reverting application data or database changes caused by the feature.
+
+8. Role-Based Access Control
+
+Secure management endpoints using Spring Security.
+
+Allow authorized administrators to create, update, enable, disable, and delete flags.
+
+Restrict production configuration changes to users with appropriate permissions.
+
+Enforce authorization on the backend rather than relying only on dashboard controls.
+
+9. Real-Time Change Notifications
+
+Notify connected dashboards when a feature flag configuration changes.
+
+Use WebSockets or Server-Sent Events (SSE) to deliver change notifications.
+
+Refresh affected flag configurations without restarting the application.
+
+Keep the dashboard synchronized with administrative changes.
+
+Coordinate cache invalidation with configuration updates to prevent stale evaluations.
+
+🛠️ Technology Stack
+
+Technology
+
+Purpose
+
+React
+
+Frontend dashboard
+
+Java
+
+Backend application logic
+
+Spring Boot
+
+REST APIs and backend services
+
+Spring Security
+
+Authentication and authorization
+
+PostgreSQL
+
+Persistent storage for flags, configurations, and audit records
+
+Redis
+
+Configuration caching
+
+WebSockets / SSE
+
+Real-time change notifications
+
+Maven
+
+Backend dependency management
+
+Git and GitHub
+
+Version control and collaboration
